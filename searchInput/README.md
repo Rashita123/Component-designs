@@ -32,3 +32,5 @@ How is this performant?
 Some additional ways of improving performance?
 
 1. Cancel pending API requests: Use an `AbortController` to cancel pending API requests when the input changes or the component unmounts.
+
+   Find working demo here - [CodeSandbox](https://codesandbox.io/p/sandbox/autocomplete-p8jp9z?file=%2Fsrc%2FApp.js%3A12%2C1)
