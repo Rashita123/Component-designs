@@ -61,16 +61,25 @@ export const SearchInput = ({ API_ENDPOINT }) => {
       setSearchInput(fetchedSuggestions[selectedSuggestionIndex]?.title);
     }
   };
+  const handleSuggestionClick = (suggestion) => {
+    setSearchInput(suggestion.title);
+    setShowSuggestions(false);
+  };
   return (
     <>
       <input
         className="search-input"
         value={searchInput}
-        onChange={(e) => setSearchInput(e.target.value)}
+        onChange={(e) => {
+          setShowSuggestions(true);
+          setSearchInput(e.target.value);
+        }}
         onFocus={() => setShowSuggestions(true)}
         onBlur={() => {
-          setShowSuggestions(false);
-          setSelectedSuggestionIndex(null);
+          setTimeout(() => {
+            setShowSuggestions(false);
+            setSelectedSuggestionIndex(null);
+          }, 200);
         }}
         onKeyDown={handleKeyPressEvents}
         type="search"
@@ -94,6 +103,11 @@ export const SearchInput = ({ API_ENDPOINT }) => {
                     selectedSuggestionIndex === index ? "#ebe5c2" : "",
                 }}
                 key={suggestion.id}
+                onMouseDown={(e) => {
+                  // Prevent the input from losing focus immediately
+                  e.preventDefault();
+                  handleSuggestionClick(suggestion);
+                }}
               >
                 {suggestion.title}
               </span>
